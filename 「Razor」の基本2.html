@@ -1,0 +1,90 @@
+<!DOCTYPE html><html><head><title>「Razor」の基本2</title><meta charset='utf-8'><link href='https://cdn.maxiang.io/res-min/themes/marxico.css' rel='stylesheet'><style></style></head><body><div id='preview-contents' class='note-content'>
+                        
+                    
+
+<h2 id="razorの基本2"><code>「Razor」の基本2</code></h2>
+
+<ul><li><p>フォームを生成する － Html.BeginFormメソッド </p>
+
+<blockquote>
+  <pre class="prettyprint hljs-dark"><code class="hljs haxe"><div class="hljs-line">@<span class="hljs-keyword">using</span> (Html.BeginForm(
+</div><div class="hljs-line">    <span class="hljs-string">"Edit"</span>, <span class="hljs-comment">// アクション名</span>
+</div><div class="hljs-line">    <span class="hljs-string">"Books"</span>, <span class="hljs-comment">// コントローラ名</span>
+</div><div class="hljs-line">    <span class="hljs-keyword">new</span> <span class="hljs-type"></span>{ id = <span class="hljs-string">"978-4-7981-2344-8"</span>, flag = <span class="hljs-string">"1"</span> }, <span class="hljs-comment">// ルート・パラメータ</span>
+</div><div class="hljs-line">    FormMethod.Post, <span class="hljs-comment">// HTTPメソッド（method属性）</span>
+</div><div class="hljs-line">    <span class="hljs-keyword">new</span> <span class="hljs-type"></span>{ enctype = <span class="hljs-string">"multipart/form-data"</span>} <span class="hljs-comment">// そのほかの属性</span>
+</div><div class="hljs-line">  )) {
+</div><div class="hljs-line">    ……フォームの内容……
+</div><div class="hljs-line">  }
+</div></code></pre>
+  
+  <p>BeginFormメソッドによるフォームの生成</p>
+</blockquote></li>
+<li><p><code>上のBeginRouteFormメソッドで書き換えた</code></p>
+
+<blockquote>
+  <pre class="prettyprint hljs-dark"><code class="hljs haxe"><div class="hljs-line">@<span class="hljs-keyword">using</span> (Html.BeginRouteForm(
+</div><div class="hljs-line">       <span class="hljs-string">"Default"</span>, <span class="hljs-comment">// ルート名</span>
+</div><div class="hljs-line">        <span class="hljs-keyword">new</span> <span class="hljs-type"></span>{
+</div><div class="hljs-line">          action = <span class="hljs-string">"Edit"</span>, <span class="hljs-comment">// アクション名</span>
+</div><div class="hljs-line">          controller = <span class="hljs-string">"Books"</span>, <span class="hljs-comment">// コントローラ名</span>
+</div><div class="hljs-line">          id = <span class="hljs-string">"978-4-7981-2344-8"</span>,
+</div><div class="hljs-line">          flag = <span class="hljs-string">"1"</span> <span class="hljs-comment">// そのほかのパラメータ</span>
+</div><div class="hljs-line">        }, <span class="hljs-comment">// ルート・パラメータ</span>
+</div><div class="hljs-line">        FormMethod.Post, <span class="hljs-comment">// HTTPメソッド（method属性）</span>
+</div><div class="hljs-line">        <span class="hljs-keyword">new</span> <span class="hljs-type"></span>{ enctype = <span class="hljs-string">"multipart/form-data"</span>} <span class="hljs-comment">// そのほかの属性</span>
+</div><div class="hljs-line">      )) {
+</div><div class="hljs-line">        ……フォームの内容……
+</div><div class="hljs-line">      }
+</div></code></pre>
+</blockquote></li>
+<li><p><code>出力されるHTMLコード</code></p>
+
+<blockquote>
+  <pre class="prettyprint hljs-dark"><code class="hljs subunit"><div class="hljs-line">&lt;form action="/Books/Edit/978<span class="hljs-string">-4</span><span class="hljs-string">-7981</span><span class="hljs-string">-2344</span><span class="hljs-string">-8</span>?flag=1"
+</div></code></pre>
+  
+  <p>enctype=”multipart/form-data” method=”post”&gt;～</p>
+</blockquote></li>
+</ul>
+
+<hr>
+
+<ul><li><p>ラベルを生成する － Html.LabelForメソッド</p>
+
+<blockquote>
+  <pre class="prettyprint hljs-dark"><code class="hljs css"><div class="hljs-line">@<span class="hljs-keyword">Html</span>.<span class="hljs-keyword">LabelFor</span>(<span class="hljs-keyword">model</span> =&gt; model.Isbn)  
+</div></code></pre>
+</blockquote></li>
+<li><p>出力されるHTMLコード</p>
+
+<blockquote>
+  <pre class="prettyprint hljs-dark"><code class="hljs dockerfile"><div class="hljs-line">&lt;<span class="hljs-keyword">label</span><span class="bash"> <span class="hljs-keyword">for</span>=<span class="hljs-string">"Isbn"</span>&gt;ISBNコード&lt;/label&gt;</span>
+</div></code></pre>
+</blockquote></li>
+</ul>
+
+<hr>
+
+<ul><li><p>サーバサイド・コメント</p>
+
+<blockquote>
+  <pre class="prettyprint hljs-dark"><code class="hljs markdown"><div class="hljs-line">@<span class="hljs-bullet">* サーバサイド・コメントです *</span>@
+</div></code></pre>
+</blockquote></li>
+</ul>
+
+<hr>
+
+<ul><li><p>　ビュー変数を設定するには</p>
+
+<blockquote>
+  <pre class="prettyprint hljs-dark"><code class="hljs fix"><div class="hljs-line"><span class="hljs-attr">ViewBag.変数名 </span>=<span class="hljs-string"> 値</span>
+</div></code></pre>
+  
+  <p><code>ViewBagオブジェクトはバージョン3からの新機能。従来は、同じ目的で「ViewData["msg"] = "……";」 <br>
+  </code></p>
+</blockquote></li>
+</ul>
+
+<hr></div></body></html>

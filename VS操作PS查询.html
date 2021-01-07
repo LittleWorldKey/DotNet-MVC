@@ -1,0 +1,42 @@
+<!DOCTYPE html><html><head><title>VS操作PS查询</title><meta charset='utf-8'><link href='https://cdn.maxiang.io/res-min/themes/marxico.css' rel='stylesheet'><style></style></head><body><div id='preview-contents' class='note-content'>
+                        
+                    
+
+
+
+<h1 id="vs操作ps查询"><code>VS操作PS查询</code></h1>
+
+
+
+<h4 id="ps中dirの結果を相対パスで表示">PS中dirの結果を相対パスで表示</h4>
+
+<blockquote>
+  <p>dir -r -file *.txt | Resolve-Path -Relative</p>
+</blockquote>
+
+
+
+<h5 id="查找关键字初期化処理tnktjg303所对应的当前文件以及子文件下的下的js文件名-及行号行号">查找关键字【”初期化処理”,”TNKTJG303”】所对应的当前文件以及子文件下的下的*js文件名 及行号[行号]</h5>
+
+<blockquote>
+  <p>Select-String -Path “*.js” -Pattern “初期化処理”,”TNKTJG303”</p>
+</blockquote>
+
+
+
+<h2 id="psでは-grep使用方法-此文件下的包含選択关键字的文件及-行数">PSでは　Grep使用方法 此文件下的包含”選択”关键字的文件及 行数</h2>
+
+<blockquote>
+  <p>PS&gt; dir -r * | select-string “選択” <br>
+  PS&gt; ps | select-string “chrome”</p>
+</blockquote>
+
+
+
+<h4 id="ps-文字化け-設定">PS 文字化け　設定</h4>
+
+<blockquote>
+  <p><a href="https://qiita.com/s4i/items/75c19c9feb10b54c1ce9" target="_blank">https://qiita.com/s4i/items/75c19c9feb10b54c1ce9</a></p>
+</blockquote>
+
+<p><code>enter code here</code></p></div></body></html>

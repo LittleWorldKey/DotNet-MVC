@@ -1,0 +1,246 @@
+<!DOCTYPE html><html><head><title>ASP.NET MVC入門 Razorの基本</title><meta charset='utf-8'><link href='https://cdn.maxiang.io/res-min/themes/marxico.css' rel='stylesheet'><style></style></head><body><div id='preview-contents' class='note-content'>
+                        
+                    
+
+
+
+<h1 id="aspnet-mvc入門-razorの基本"><code>ASP.NET MVC入門 Razorの基本</code></h1>
+
+<p><a href="https://qiita.com/tbpgr/items/989c6badefff69377da7" target="_blank">markDown先生</a></p>
+
+<ul><li><p><code>Razorの最も基本的な記法で、「@expression」の形式で記述できる</code></p>
+
+<blockquote>
+  <pre class="prettyprint hljs-dark"><code class="hljs css"><div class="hljs-line"> @<span class="hljs-keyword">Model</span>.<span class="hljs-keyword">Isbn</span>  
+</div></code></pre>
+  
+  <p>モデル・オブジェクトのIsbnプロパティを出力するコード</p>
+</blockquote></li>
+</ul>
+
+<hr>
+
+<ul><li><p>プロパティを指定</p>
+
+<blockquote>
+  <pre class="prettyprint hljs-dark"><code class="hljs stylus"><div class="hljs-line">&lt;<span class="hljs-selector-tag">img</span> src=<span class="hljs-string">"@(Model.Isbn)_logo.jpg"</span> /&gt;  
+</div></code></pre>
+  
+  <p>明示的にIsbnプロパティを指定</p>
+</blockquote></li>
+</ul>
+
+<hr>
+
+<ul><li><p><code>インライン式（エスケープ処理をスキップ）跳过转义</code></p>
+
+<blockquote>
+  <pre class="prettyprint hljs-dark"><code class="hljs css"><div class="hljs-line"> @<span class="hljs-keyword">Html</span>.<span class="hljs-keyword">Raw</span>(<span class="hljs-keyword">Model</span>.<span class="hljs-keyword">Body</span>)  同下ASPX
+</div><div class="hljs-line">  &lt;%= Model.Body %&gt;
+</div></code></pre>
+</blockquote></li>
+</ul>
+
+<hr>
+
+<ul><li><p><code>Html.Rawメソッドは内部的にはHtmlStringオブジェクトを生成</code></p>
+
+<blockquote>
+  <pre class="prettyprint hljs-dark"><code class="hljs css"><div class="hljs-line"> @<span class="hljs-keyword">Html</span>.<span class="hljs-keyword">Raw</span>(<span class="hljs-keyword">new</span> HtmlString(Model.Body))
+</div></code></pre>
+</blockquote></li>
+</ul>
+
+<hr>
+
+<ul><li><p><code>コード・ブロック</code></p>
+
+<blockquote>
+  <pre class="prettyprint hljs-dark"><code class="hljs actionscript"><div class="hljs-line"> @{ <span class="hljs-keyword">var</span> str = <span class="hljs-string">"ビュー・エンジン"</span>; }
+</div></code></pre>
+  
+  <p>変数strに値を代入するためのコード・ブロック</p>
+</blockquote></li>
+</ul>
+
+<hr>
+
+<ul><li><p><code>「@」文字のエスケープ</code></p>
+
+<blockquote>
+  <pre class="prettyprint hljs-dark"><code class="hljs css"><div class="hljs-line"> <span class="hljs-selector-tag">examples</span>@<span class="hljs-keyword">wings</span>.<span class="hljs-keyword">msn</span>.<span class="hljs-keyword">to</span>
+</div></code></pre>
+  
+  <p>予約文字である「@」を文字列中に使用</p>
+</blockquote></li>
+</ul>
+
+<hr>
+
+<ul><li><p><code>先頭に文字「@」を使用するには「@@」と記述する</code></p>
+
+<blockquote>
+  <pre class="prettyprint hljs-dark"><code class="hljs aspectj"><div class="hljs-line"> @<span class="hljs-meta">@IT</span> Insider.NET
+</div></code></pre>
+  
+  <p>予約文字である「@」を文字列中に使用</p>
+</blockquote></li>
+</ul>
+
+<hr>
+
+<blockquote>
+  <p>チェックボックス： <br>
+  @Html.CheckBoxFor( <br>
+    model =&gt; model.Cd, // プロパティ <br>
+    new { tabindex = 3 } // そのほかの属性 <br>
+  )</p>
+  
+  <p>ラジオボタン： <br>
+  @Html.RadioButtonFor( <br>
+    model =&gt; model.Publish, // プロパティ <br>
+    “翔泳社”, // 値（value属性） <br>
+    new { tabindex = 3 } // そのほかの属性 <br>
+  )</p>
+  
+  <p>Html.RadioButtonFor( <br>
+    model =&gt; model.Publish, // プロパティ <br>
+    “技術評論社”, // 値（value属性） <br>
+      new { tabindex = 3 } そのほかの属性 <br>
+  )</p>
+</blockquote>
+
+<ul><li><p><code>チェックボックス：  <br>
+&lt;input id="Cd" name="Cd" tabindex="3" type="checkbox" value="true" /&gt; <br>
+&lt;input name="Cd" type="hidden" value="false" /&gt; <br>
+</code> <br>
+<code>ラジオボタン： <br>
+&lt;input id="Publish" name="Publish" tabindex="3" type="radio" value="翔泳社" /&gt; <br>
+&lt;input checked="checked" id="Publish" name="Publish" tabindex="3"  type="radio" value="技術評論社" /&gt;</code></p>
+
+<hr></li>
+</ul>
+
+
+
+<h4 id="選択ボックスリストボックスを生成する">選択ボックス／リストボックスを生成する</h4>
+
+
+
+<h5 id="htmldropdownlistforlistboxforメソッド">Html.DropDownListFor／ListBoxForメソッド</h5>
+
+<ul><li><p>選択ボックス：</p>
+
+<blockquote>
+  <p><code>@Html.DropDownListFor( <br>
+  model =&gt; model.Publish, // プロパティ <br>
+  new SelectListItem[] { <br>
+  new SelectListItem() { Value="翔泳社", Text="翔泳社" }, <br>
+  new SelectListItem() { Value="技術評論社", Text="技術評論社" }, <br>
+  new SelectListItem() { Value="秀和システム", Text="秀和システム" } <br>
+  }, // オプション・リスト <br>
+  "選択してください", // 空値のオプション（ラベル・テキスト） <br>
+  new { @class = "list" } // そのほかの属性 <br>
+  )</code> </p>
+</blockquote></li>
+<li><p>` リストボックス：</p>
+
+<blockquote>
+  <p>Html.ListBoxFor( <br>
+  model =&gt; model.Publish, // プロパティ <br>
+  new SelectListItem[] { <br>
+  new SelectListItem() { Value=”翔泳社”, Text=”翔泳社” }, <br>
+  new SelectListItem() { Value=”技術評論社”, Text=”技術評論社” }, <br>
+  new SelectListItem() { Value=”秀和システム”, Text=”秀和システム” } <br>
+  }, // オプション・リスト <br>
+  new { size = 5 } // そのほかの属性 <br>
+  )`</p>
+</blockquote>
+
+<pre class="prettyprint hljs-dark"><code class="hljs xquery"><div class="hljs-line">      選択ボックス：
+</div><div class="hljs-line">    &lt;select class=<span class="hljs-string">"list"</span> id=<span class="hljs-string">"Publish"</span> name=<span class="hljs-string">"Publish"</span>&gt;
+</div><div class="hljs-line">      &lt;<span class="hljs-keyword">option</span> <span class="hljs-keyword">value</span>=<span class="hljs-string">""</span>&gt;選択してください&lt;/<span class="hljs-keyword">option</span>&gt;
+</div><div class="hljs-line">      &lt;<span class="hljs-keyword">option</span> <span class="hljs-keyword">value</span>=<span class="hljs-string">"翔泳社"</span>&gt;翔泳社&lt;/<span class="hljs-keyword">option</span>&gt;
+</div><div class="hljs-line">      &lt;<span class="hljs-keyword">option</span> selected=<span class="hljs-string">"selected"</span> <span class="hljs-keyword">value</span>=<span class="hljs-string">"技術評論社"</span>&gt;技術評論社&lt;/<span class="hljs-keyword">option</span>&gt;
+</div><div class="hljs-line">      &lt;<span class="hljs-keyword">option</span> <span class="hljs-keyword">value</span>=<span class="hljs-string">"秀和システム"</span>&gt;秀和システム&lt;/<span class="hljs-keyword">option</span>&gt;
+</div><div class="hljs-line">    &lt;/select&gt;
+</div><div class="hljs-line"><wbr>
+</div><div class="hljs-line">    リストボックス：
+</div><div class="hljs-line">    &lt;select id=<span class="hljs-string">"Publish"</span> multiple=<span class="hljs-string">"multiple"</span> name=<span class="hljs-string">"Publish"</span> size=<span class="hljs-string">"5"</span>&gt;
+</div><div class="hljs-line">      &lt;<span class="hljs-keyword">option</span> <span class="hljs-keyword">value</span>=<span class="hljs-string">"翔泳社"</span>&gt;翔泳社&lt;/<span class="hljs-keyword">option</span>&gt;
+</div><div class="hljs-line">      &lt;<span class="hljs-keyword">option</span> <span class="hljs-keyword">value</span>=<span class="hljs-string">"技術評論社"</span>&gt;技術評論社&lt;/<span class="hljs-keyword">option</span>&gt;
+</div><div class="hljs-line">      &lt;<span class="hljs-keyword">option</span> <span class="hljs-keyword">value</span>=<span class="hljs-string">"秀和システム"</span>&gt;秀和システム&lt;/<span class="hljs-keyword">option</span>&gt;
+</div><div class="hljs-line">    &lt;/select&gt;
+</div></code></pre></li>
+</ul>
+
+
+
+<hr>
+
+<ul><li><h4 id="隠しフィールドを生成する-hiddenforメソッド">隠しフィールドを生成する － HiddenForメソッド</h4>
+
+<blockquote>
+  <p>Html.HiddenFor( <br>
+  model =&gt; model.Title, // プロパティ <br>
+  new { } // そのほかの属性 <br>
+  )</p>
+</blockquote>
+
+<pre class="prettyprint hljs-dark"><code class="hljs applescript"><div class="hljs-line">&lt;input <span class="hljs-built_in">id</span>=<span class="hljs-string">"Title"</span> <span class="hljs-built_in">name</span>=<span class="hljs-string">"Title"</span> type=<span class="hljs-string">"hidden"</span> value=<span class="hljs-string">"JavaScript本格入門"</span> /&gt;
+</div></code></pre>
+
+<hr></li>
+<li><h6 id="モデルと関連付かないフォーム要素を生成する-textboxlabelメソッド">モデルと関連付かないフォーム要素を生成する － TextBox／Labelメソッド</h6>
+
+<blockquote>
+  <p>Html.TextBox( <br>
+  “keywd”, // 要素名ID <br>
+  null, // 値（value属性） <br>
+  new { size = 15, maxlength = 19 } // そのほかの属性 <br>
+  new { @class = “list” } // そのほかの属性 <br>
+  )</p>
+</blockquote>
+
+<pre class="prettyprint hljs-dark"><code class="hljs scala"><div class="hljs-line">    &lt;input id=<span class="hljs-string">"keywd"</span> <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">"list"</span> maxlength=<span class="hljs-string">"18"</span> name=<span class="hljs-string">"keywd"</span> size=<span class="hljs-string">"15"</span> <span class="hljs-class"><span class="hljs-keyword">type</span></span>=<span class="hljs-string">"text"</span> value=<span class="hljs-string">""</span> /&gt;
+</div></code></pre></li>
+</ul>
+
+<hr>
+
+<ul><li><h4 id="ハイパーリンクを生成する-htmlactionlinkメソッド">ハイパーリンクを生成する － Html.ActionLinkメソッド</h4>
+
+<blockquote>
+  <p>Html.ActionLink( <br>
+  “詳細”, // リンク・テキスト <br>
+  “Details”, // アクション名 <br>
+  “Books”, // コントローラ名 <br>
+  new { id = Model.Isbn }, // ルート・パラメータ <br>
+  new { @class = “menu” } // そのほかの属性 <br>
+  )</p>
+</blockquote>
+
+<pre class="prettyprint hljs-dark"><code class="hljs xml"><div class="hljs-line"><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"menu"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/Books/Details/978-4-7741-4466-5"</span>&gt;</span>詳細<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+</div></code></pre></li>
+</ul>
+
+<hr>
+
+
+
+<h3 id="actionlinkをroutelinkメソッドで書き換えた例">ActionLinkをRouteLinkメソッドで書き換えた例</h3>
+
+<blockquote>
+  <p>@Html.RouteLink( <br>
+    “詳細”, // リンク・テキスト <br>
+    “Default”, // ルート名 <br>
+    new { <br>
+      action = “Details”, // アクション名 <br>
+      controller = “Books”, // コントローラ名 <br>
+      id = Model.Isbn // そのほかのパラメータ <br>
+     }, // ルート・パラメータ <br>
+     new { @class = “menu” } // そのほかの属性 <br>
+  )</p>
+</blockquote>
+
+<hr></div></body></html>
